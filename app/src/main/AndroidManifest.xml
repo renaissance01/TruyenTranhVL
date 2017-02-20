@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="truyentranh.vl">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/MyMaterialTheme">
+        <activity
+            android:name=".activity.SplashScreen"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="Đăng Nhập" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:label="Đăng Ký" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".slideimages.ShowImages"
+            android:label="Đọc Truyện"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".activity.ChapActivity"
+            android:label="Từng Chap"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <!--
+            <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        -->
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
+            android:value="@string/app_name" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1713244302293625"
+            android:exported="true"
+            android:label="@string/app_name" />
+
+        <activity
+            android:name=".activity.ShareActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="Chia Sẻ Lên Facebook"
+            android:theme="@style/MyMaterialTheme" />
+
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.InfoActivity" />
+        <activity
+            android:name=".activity.CountrycodeActivity"
+            android:label="Lựa Chọn"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity
+            android:name=".activity.DiglogDownload"
+            android:label="Lựa Chọn"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity
+            android:name=".slideimages.NumberPickerActivity"
+            android:label="Chọn Trang"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity
+            android:name=".model.DownloadChap"
+            android:label="Đã Tải Xong"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+        <activity
+            android:name=".fragmentschap.Like"
+            android:theme="@android:style/Theme.NoDisplay" />
+        <activity
+            android:name=".fragmentschap.Comment"
+            android:theme="@android:style/Theme.NoDisplay" />
+        <activity android:name=".filechooser.ChooseFileActivity" />
+    </application>
+
+</manifest>

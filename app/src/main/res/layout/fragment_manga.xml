@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <TextView
+        android:id="@+id/tvSoTruyen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E0E3E4"
+        android:padding="5dp"
+        android:text="Truyện"
+        android:visibility="gone"
+        android:textColor="#3F84C7"
+        android:textSize="16dp" />
+
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSoTruyen"
+        android:layout_marginBottom="55dp">
+
+        <ListView
+            android:id="@+id/lvManga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/tvManga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
+        android:text="CHƯA CÓ TRUYỆN"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</RelativeLayout>

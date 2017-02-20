@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Truyện Tranh VL</string>
+    <string name="action_settings">Cài Đặt</string>
+    <string name="action_search">Tìm Kiếm</string>
+    <string name="title_activity_manga_new">Truyện Mới</string>
+    <string name="drawer_open">Mở</string>
+    <string name="drawer_close">Đóng</string>
+
+    <string name="app_id">1713244302293625</string>
+    <string name="facebook_app_id">1713244302293625</string>
+    <string name="cancelled">Thoát</string>
+    <string name="permission_not_granted">Không thể thực hiện hành động được chọn vì quyền không được cấp.</string>
+    <string name="ok">OK</string>
+    <string name="hello_user">Xin Chào %1$s :)</string>
+    <string name="success">Thành Công</string>
+    <string name="successfully_posted_post">ID: %1$s</string>
+    <string name="error">Lỗi</string>
+    <string name="exception">Ngoại Lệ: %1$s</string>
+
+    <string-array name="country_names">
+        <item>Thêm vào yêu thích</item>
+    </string-array>
+
+    <string-array name="country_flags">
+        <item>@drawable/icon_yeuthich</item>
+    </string-array>
+
+    <string-array name="chap_title">
+        <item>Tải Chap Này Về</item>
+    </string-array>
+
+    <string-array name="chap_icon">
+        <item>@drawable/icon_download</item>
+    </string-array>
+
+    <string name="btn_choose_a_file">Chọn File Truyện .ZIP hoặc .RAR</string>
+    <string name="title_choose_file">Chọn File Truyện .ZIP hoặc .RAR</string>
+    <string name="chon">Chọn</string>
+    <string name="thoat">Thoát</string>
+
+
+</resources>
