@@ -40,7 +40,6 @@ import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.activity.DiglogDownload;
 import truyentranh.vl.adapter.LvChap;
-import truyentranh.vl.model.DownloadChap;
 import truyentranh.vl.model.LvChapItem;
 import truyentranh.vl.slideimages.ShowImages;
 

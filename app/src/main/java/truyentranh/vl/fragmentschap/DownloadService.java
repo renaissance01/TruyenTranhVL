@@ -37,7 +37,6 @@ import truyentranh.vl.database.Database;
 import truyentranh.vl.model.DbTaiTruyen;
 import truyentranh.vl.model.Decompress;
 import truyentranh.vl.model.Download;
-import truyentranh.vl.model.DownloadChap;
 
 
 public class DownloadService extends IntentService {
@@ -119,6 +118,20 @@ public class DownloadService extends IntentService {
         int count;
         byte data[] = new byte[1024 * 4];
         long fileSize = body.contentLength();
+
+        //Tạo thư mục
+        File folder = new File(Environment.getExternalStorageDirectory() + "/TruyenTranhVL");
+        boolean success = true;
+        if (!folder.exists()) {
+            //Toast.makeText(MainActivity.this, "Directory Does Not Exist, Create It", Toast.LENGTH_SHORT).show();
+            success = folder.mkdir();
+        }
+        if (success) {
+            //Toast.makeText(MainActivity.this, "Directory Created", Toast.LENGTH_SHORT).show();
+        } else {
+            //Toast.makeText(MainActivity.this, "Failed - Error", Toast.LENGTH_SHORT).show();
+        }
+
         InputStream bis = new BufferedInputStream(body.byteStream(), 1024 * 8);
         File outputFile = new File(Environment.getExternalStorageDirectory(), "/TruyenTranhVL/" + tentruyen + " - Chap " + idchap + ": " + tenchap + ".zip");
         OutputStream output = new FileOutputStream(outputFile);

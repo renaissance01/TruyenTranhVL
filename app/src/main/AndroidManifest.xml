@@ -94,10 +94,6 @@
             android:label="Chọn Trang"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
-            android:name=".model.DownloadChap"
-            android:label="Đã Tải Xong"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" />
-        <activity
             android:name=".fragmentschap.Like"
             android:theme="@android:style/Theme.NoDisplay" />
         <activity
