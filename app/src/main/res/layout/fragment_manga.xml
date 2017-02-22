@@ -4,28 +4,37 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+    <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+        android:id="@+id/google_now"
+        style="@style/GNowProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="visible" />
+
     <TextView
         android:id="@+id/tvSoTruyen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/google_now"
         android:background="#E0E3E4"
         android:padding="5dp"
         android:text="Truyện"
-        android:visibility="gone"
         android:textColor="#3F84C7"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvSoTruyen"
-        android:layout_marginBottom="55dp">
+        android:layout_below="@+id/tvSoTruyen">
 
         <ListView
             android:id="@+id/lvManga"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView

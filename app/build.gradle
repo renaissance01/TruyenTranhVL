@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 24
@@ -38,4 +39,10 @@ dependencies {
     compile 'com.goldducks:splashAnimations:0.0.1'
     compile 'me.wangyuwei:ParticleView:1.0.4'
     compile 'com.obsez.android.lib.filechooser:filechooser:1.1.4'
+
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+
+    compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
 }

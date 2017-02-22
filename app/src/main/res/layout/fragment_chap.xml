@@ -2,10 +2,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+        android:id="@+id/google_now"
+        style="@style/GNowProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="visible" />
+
+    <!--<LinearLayout
         android:id="@+id/llThich"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/google_now"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingTop="5dp">
@@ -29,19 +38,19 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/llThich"
-        android:layout_marginBottom="55dp">
+        android:layout_below="@+id/llThich">
 
         <ListView
             android:id="@+id/lvChap"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>

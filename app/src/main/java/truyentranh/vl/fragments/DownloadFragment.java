@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.adapter.LvDownload;
 import truyentranh.vl.database.Database;
@@ -41,6 +42,8 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     //Refresh
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private SmoothProgressBar mGoogleNow;
 
     public DownloadFragment() {
 
@@ -64,6 +67,8 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
         //Truyện
         lvManga = (ListView) rootView.findViewById(R.id.lvManga);
 
+        mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
+
         try {
             //Json
             getJSONData();
@@ -81,6 +86,7 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -200,6 +206,9 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            //Ẩn loading
+            mGoogleNow.progressiveStop();
+            mGoogleNow.setVisibility(View.GONE);
             try {
                 tvSoTruyen.setVisibility(View.VISIBLE);
                 adapter = new LvDownload(getActivity(), R.layout.download_listview, arrItem);

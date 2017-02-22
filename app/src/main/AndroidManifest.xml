@@ -103,7 +103,7 @@
         <activity
             android:name=".fragmentschap.Comment"
             android:theme="@android:style/Theme.NoDisplay" />
-        <activity android:name=".filechooser.ChooseFileActivity" />
-    </application>
 
+        <service android:name=".fragmentschap.DownloadService" />
+    </application>
 </manifest>

@@ -4,6 +4,14 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+        android:id="@+id/google_now"
+        style="@style/GNowProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="visible" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,13 +55,13 @@
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvSoTruyen"
-        android:layout_marginBottom="55dp">
+        android:layout_below="@+id/tvSoTruyen">
 
         <ListView
             android:id="@+id/lvComment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

@@ -34,7 +34,7 @@ public class ChapActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FragmentDrawer drawerFragment;
-    private String idtruyen, tentruyen, comment, tab;
+    private String idtruyen, tentruyen, comment, tab, trang;
     private FloatingActionButton fab;
 
     //Trang đang xem
@@ -50,6 +50,7 @@ public class ChapActivity extends AppCompatActivity implements FragmentDrawer.Fr
         tentruyen = getIntent().getBundleExtra("key").getString("tentruyen");
         comment = getIntent().getBundleExtra("key").getString("comment");
         tab = getIntent().getBundleExtra("key").getString("tab");
+        trang = getIntent().getBundleExtra("key").getString("trang");
 
         db = new Database(getApplication());
 
@@ -68,6 +69,12 @@ public class ChapActivity extends AppCompatActivity implements FragmentDrawer.Fr
         if (comment != null) {
             //Trở lại tab comment
             TabLayout.Tab tab = tabLayout.getTabAt(2);
+            tab.select();
+        }
+
+        if (trang != null) {
+            //Trở lại tab comment
+            TabLayout.Tab tab = tabLayout.getTabAt(Integer.parseInt(trang));
             tab.select();
         }
 

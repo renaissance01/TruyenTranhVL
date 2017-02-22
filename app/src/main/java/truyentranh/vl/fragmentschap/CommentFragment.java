@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.adapter.LvComment;
 import truyentranh.vl.adapter.LvCommentItem;
@@ -56,6 +57,8 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     //Refresh
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private SmoothProgressBar mGoogleNow;
 
     public CommentFragment() {
 
@@ -85,6 +88,8 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
         nhanbiet = getActivity().getIntent().getBundleExtra("key").getString("nhanbiet");
         tab = getActivity().getIntent().getBundleExtra("key").getString("tab");
 
+        mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
+
         //Json
         try {
             getJSONData();
@@ -97,6 +102,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -177,7 +183,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     arrItem.add(new LvCommentItem(i+1 + "", hoten, dateString, noidung));
                 }
             } catch (Exception e) {
-                Log.e("MY_WATCH", "Lỗi: " + e.getMessage());
+                Log.e("MY_WATCH", "Lỗi CommentFragment: " + e.getMessage());
             }
             return null;
         }
@@ -185,6 +191,9 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            //Ẩn loading
+            mGoogleNow.progressiveStop();
+            mGoogleNow.setVisibility(View.GONE);
             try {
                 /*new ImageLoadTask(infoitem.getAvatar(), tvAvatarInfo).execute();
                 tvTenTruyen.setText(infoitem.getTentruyen());*/

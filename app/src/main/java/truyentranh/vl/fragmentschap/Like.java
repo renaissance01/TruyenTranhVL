@@ -33,7 +33,7 @@ import truyentranh.vl.slideimages.ShowImages;
 
 public class Like extends Activity {
 
-    private String id, tentruyen, taikhoan, check, thich;
+    private String id, tentruyen, taikhoan, check, thich, trang;
 
     //Session lưu tài khoản đăng nhập
     SharedPreferences sharedpreferences;
@@ -48,6 +48,7 @@ public class Like extends Activity {
 
         id = getIntent().getBundleExtra("key").getString("idtruyen");
         tentruyen = getIntent().getBundleExtra("key").getString("tentruyen");
+        trang = getIntent().getBundleExtra("key").getString("trang");
 
         new Like.SendRequest().execute();
     }
@@ -132,6 +133,7 @@ public class Like extends Activity {
                 bundle.putString("id", (Integer.parseInt(id)-1)+"");
                 bundle.putString("tentruyen", tentruyen);
                 bundle.putString("sochap", "0");
+                bundle.putString("trang", trang);
                 bundle.putString("nhanbiet", "activity");
                 intent.putExtra("key", bundle);
                 startActivity(intent);

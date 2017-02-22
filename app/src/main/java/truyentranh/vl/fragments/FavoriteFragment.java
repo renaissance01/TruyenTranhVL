@@ -29,6 +29,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.activity.ChapActivity;
 import truyentranh.vl.adapter.LvManga;
@@ -49,6 +50,8 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     //Refresh
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private SmoothProgressBar mGoogleNow;
 
     public FavoriteFragment() {
 
@@ -81,6 +84,8 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
         tvYeuThich1 = (TextView)rootView.findViewById(R.id.tvYeuThich1);
         tvYeuThich2 = (TextView)rootView.findViewById(R.id.tvYeuThich2);
         tvSoTruyen = (TextView)rootView.findViewById(R.id.tvSoTruyen);
+        mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
+
         if (arrItem.size() > 0) {
             arrItem.clear();
             tvYeuThich1.setVisibility(View.GONE);
@@ -89,6 +94,7 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -232,6 +238,9 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            //Ẩn loading
+            mGoogleNow.progressiveStop();
+            mGoogleNow.setVisibility(View.GONE);
             try {
                 tvSoTruyen.setVisibility(View.VISIBLE);
                 adapter = new LvManga(getActivity(), R.layout.manga_listview, arrItem);

@@ -30,6 +30,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.activity.ChapActivity;
 import truyentranh.vl.adapter.LvManga;
@@ -50,6 +51,8 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     //Refresh
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private SmoothProgressBar mGoogleNow;
 
     public HistoryFragment() {
 
@@ -84,6 +87,9 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
         tvHistory = (TextView)rootView.findViewById(R.id.tvHistory);
         tvHistory2 = (TextView)rootView.findViewById(R.id.tvHistory2);
         tvSoTruyen = (TextView)rootView.findViewById(R.id.tvSoTruyen);
+
+        mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
+
         if (arrItem.size() > 0) {
             arrItem.clear();
             tvHistory.setVisibility(View.GONE);
@@ -92,6 +98,7 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -227,6 +234,9 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            //Ẩn loading
+            mGoogleNow.progressiveStop();
+            mGoogleNow.setVisibility(View.GONE);
             try {
                 tvSoTruyen.setVisibility(View.VISIBLE);
                 adapter = new LvManga(getActivity(), R.layout.manga_listview, arrItem);

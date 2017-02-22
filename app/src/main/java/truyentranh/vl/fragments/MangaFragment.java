@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.activity.ChapActivity;
 import truyentranh.vl.activity.CountrycodeActivity;
@@ -48,6 +50,8 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     //Refresh
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private SmoothProgressBar mGoogleNow;
 
     public MangaFragment() {
 
@@ -78,6 +82,9 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         tvManga = (TextView) rootView.findViewById(R.id.tvManga);
         tvSoTruyen = (TextView) rootView.findViewById(R.id.tvSoTruyen);
+
+        mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
+
         if (arrItem.size() > 0) {
             arrItem.clear();
             tvManga.setVisibility(View.GONE);
@@ -85,6 +92,7 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -145,6 +153,34 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 return true;
             }
         });
+
+        /*lvManga.setOnScrollListener(new AbsListView.OnScrollListener() {
+            private int mLastFirstVisibleItem;
+            boolean hideToolBar = false;
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (hideToolBar) {
+                    ((MainActivity) getActivity()).getSupportActionBar().hide();
+                } else {
+                    ((MainActivity) getActivity()).getSupportActionBar().show();
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+                if (mLastFirstVisibleItem < firstVisibleItem) {
+                    hideToolBar = true;
+                }
+                if (mLastFirstVisibleItem > firstVisibleItem) {
+                    hideToolBar = false;
+                }
+                mLastFirstVisibleItem = firstVisibleItem;
+
+            }
+        });*/
 
         return rootView;
     }
@@ -236,6 +272,9 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            //Ẩn loading
+            mGoogleNow.progressiveStop();
+            mGoogleNow.setVisibility(View.GONE);
             try {
                 tvSoTruyen.setVisibility(View.VISIBLE);
                 adapter = new LvManga(getActivity(), R.layout.manga_listview, arrItem);

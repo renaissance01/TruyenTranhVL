@@ -35,6 +35,8 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import butterknife.ButterKnife;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.activity.DiglogDownload;
 import truyentranh.vl.adapter.LvChap;
@@ -48,13 +50,17 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private ArrayList<LvChapItem> arrItem = new ArrayList<>();
     private LvChap adapter = null;
     String idtruyen, tentruyen, tacgia, avatar, nhanbiet, idchap, tenchap, zipchap, tab;
-    private ImageView ivThich;
-    private TextView tvThich;
 
-    private String thich;
+   /* private ImageView ivThich;
+    private TextView tvThich;
+    private String thich;*/
 
     //Refresh
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    public static final String MESSAGE_PROGRESS = "message_progress";
+
+    private SmoothProgressBar mGoogleNow;
 
     public ChapFragment() {
 
@@ -71,9 +77,12 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         View rootView = inflater.inflate(R.layout.fragment_chap,
                 container, false);
 
+        //Download Chap
+        ButterKnife.bind(getActivity());
+
         lvChap = (ListView) rootView.findViewById(R.id.lvChap);
-        ivThich = (ImageView) rootView.findViewById(R.id.ivThich);
-        tvThich = (TextView) rootView.findViewById(R.id.tvThich);
+        /*ivThich = (ImageView) rootView.findViewById(R.id.ivThich);
+        tvThich = (TextView) rootView.findViewById(R.id.tvThich);*/
 
         idtruyen = getActivity().getIntent().getBundleExtra("key").getString("id");
         tentruyen = getActivity().getIntent().getBundleExtra("key").getString("tentruyen");
@@ -82,8 +91,11 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         nhanbiet = getActivity().getIntent().getBundleExtra("key").getString("nhanbiet");
         tab = getActivity().getIntent().getBundleExtra("key").getString("tab");
 
+        mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
+
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -142,17 +154,17 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         });
 
-        ivThich.setOnClickListener(new View.OnClickListener() {
+        /*ivThich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Like.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("idtruyen", (Integer.parseInt(idtruyen)+1)+"");
+                bundle.putString("idtruyen", (Integer.parseInt(idtruyen) + 1) + "");
                 bundle.putString("tentruyen", tentruyen);
                 intent.putExtra("key", bundle);
                 startActivity(intent);
             }
-        });
+        });*/
 
         return rootView;
     }
@@ -183,7 +195,7 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             try {
                 URL url = new URL("http://m.sieuhack.mobi/themdata.php");
                 JSONObject postDataParams = new JSONObject();
-                postDataParams.put("id", Integer.parseInt(idtruyen)+1);
+                postDataParams.put("id", Integer.parseInt(idtruyen) + 1);
                 postDataParams.put("luotxem", "1");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000);
@@ -222,7 +234,7 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
                 JSONArray jsonArray2 = jObject.optJSONArray("chap");
 
-                thich = jObject.getString("thich");
+                //thich = jObject.getString("thich");
 
                 for (int j = 0; j < jsonArray2.length(); j++) {
                     JSONObject jObject2 = jsonArray2.getJSONObject(j);
@@ -242,10 +254,13 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            //Ẩn loading
+            mGoogleNow.progressiveStop();
+            mGoogleNow.setVisibility(View.GONE);
             try {
-                ivThich.setVisibility(View.VISIBLE);
+                /*ivThich.setVisibility(View.VISIBLE);
                 tvThich.setVisibility(View.VISIBLE);
-                tvThich.setText(thich);
+                tvThich.setText(thich);*/
                 adapter = new LvChap(getActivity(), R.layout.chap_listview, arrItem);
                 lvChap.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -281,7 +296,7 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             String id = data.getStringExtra(DiglogDownload.RESULT_ID);
 
             if (id.equals("0")) {
-                Intent intent = new Intent(getActivity(), DownloadChap.class);
+                Intent intent = new Intent(getActivity(), DownloadService.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("idtruyen", String.valueOf(Integer.valueOf(idtruyen) + 1));
                 bundle.putString("tentruyen", tentruyen);
@@ -291,7 +306,7 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 bundle.putString("tenchap", tenchap);
                 bundle.putString("zipchap", zipchap);
                 intent.putExtra("keychapdownload", bundle);
-                startActivity(intent);
+                getActivity().startService(intent);
             }
         }
     }

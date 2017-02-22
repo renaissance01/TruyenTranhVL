@@ -51,17 +51,17 @@ public class LvManga extends
 
             //Toast.makeText(getContext(), (Integer.parseInt(myArray.get(position).getId())-1)+"", Toast.LENGTH_SHORT).show();
             try {
-                if (db.checkTrangDangXem3((Integer.parseInt(myArray.get(position).getId()) - 1) + "")) {
+                if(db.checkTrangDangXem3((Integer.parseInt(myArray.get(position).getId())-1)+"")) {
                     TextView tvTenTruyen = (TextView)
                             row.findViewById(R.id.tvTenTruyen);
                     tvTenTruyen.setText(myArray.get(position).getTentruyen());
                     tvTenTruyen.setTextColor(Color.MAGENTA);
-                } else {
+                }else{
                     TextView tvTenTruyen = (TextView)
                             row.findViewById(R.id.tvTenTruyen);
                     tvTenTruyen.setText(myArray.get(position).getTentruyen());
                 }
-            } catch (Exception e) {
+            }catch (Exception e){
                 TextView tvTenTruyen = (TextView)
                         row.findViewById(R.id.tvTenTruyen);
                 tvTenTruyen.setText(myArray.get(position).getTentruyen());

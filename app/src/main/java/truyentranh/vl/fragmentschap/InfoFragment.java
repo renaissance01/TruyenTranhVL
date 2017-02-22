@@ -1,5 +1,6 @@
 package truyentranh.vl.fragmentschap;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.adapter.LvChap;
 import truyentranh.vl.model.InfoItem;
@@ -38,6 +40,12 @@ public class InfoFragment extends Fragment {
     private ImageView tvAvatarInfo;
     private TextView tvTenTruyen, tvTenKhac, tvTacGia, tvChap, tvTinhTrang, tvMoTa;
     private InfoItem infoitem;
+
+    private SmoothProgressBar mGoogleNow;
+
+    private ImageView ivThich;
+    private TextView tvThich;
+    private String thich;
 
     public InfoFragment() {
 
@@ -66,11 +74,30 @@ public class InfoFragment extends Fragment {
         sochap = getActivity().getIntent().getBundleExtra("key").getString("sochap");
         nhanbiet = getActivity().getIntent().getBundleExtra("key").getString("nhanbiet");
 
+        mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
+
+        ivThich = (ImageView) rootView.findViewById(R.id.ivThich);
+        tvThich = (TextView) rootView.findViewById(R.id.tvThich);
+
         //Json
         try {
             getJSONData();
         } catch (Exception e) {
         }
+
+        ivThich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Like.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("idtruyen", (Integer.parseInt(idtruyen) + 1) + "");
+                bundle.putString("tentruyen", infoitem.getTentruyen());
+                bundle.putString("trang", "1");
+                intent.putExtra("key", bundle);
+                startActivity(intent);
+            }
+        });
+
         return rootView;
     }
 
@@ -105,6 +132,7 @@ public class InfoFragment extends Fragment {
                 JSONArray jsonArray = new JSONArray(builder.toString());
                 JSONObject jObject = jsonArray.getJSONObject(Integer.valueOf(idtruyen.toString().trim()));
                 String id = jObject.getString("id");
+                thich = jObject.getString("thich");
                 String avatarinfo = String.valueOf(jObject.getString("avatarinfo"));
                 String tentruyen = String.valueOf(jObject.getString("tentruyen"));
                 String tenkhac = String.valueOf(jObject.getString("tenkhac"));
@@ -121,7 +149,15 @@ public class InfoFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            //Ẩn loading
+            mGoogleNow.progressiveStop();
+            mGoogleNow.setVisibility(View.GONE);
             try {
+
+                ivThich.setVisibility(View.VISIBLE);
+                tvThich.setVisibility(View.VISIBLE);
+                tvThich.setText(thich);
+
                 new ImageLoadTask(infoitem.getAvatar(), tvAvatarInfo).execute();
                 tvTenTruyen.setText(infoitem.getTentruyen());
                 tvTenKhac.setText(infoitem.getTenkhac());
