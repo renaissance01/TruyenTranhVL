@@ -1,18 +1,20 @@
 package truyentranh.vl.fragments;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +34,7 @@ import java.util.Calendar;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.activity.ChapActivity;
-import truyentranh.vl.activity.CountrycodeActivity;
+import truyentranh.vl.activity.ChooseActivity;
 import truyentranh.vl.activity.MainActivity;
 import truyentranh.vl.adapter.LvManga;
 import truyentranh.vl.database.Database;
@@ -52,6 +54,8 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private SmoothProgressBar mGoogleNow;
+
+    private MyReceiver r;
 
     public MangaFragment() {
 
@@ -144,7 +148,7 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(getActivity(), CountrycodeActivity.class);
+                Intent intent = new Intent(getActivity(), ChooseActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", arrItem.get(position).getId());
                 intent.putExtra("key", bundle);
@@ -189,8 +193,8 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            String countryCode = data.getStringExtra(CountrycodeActivity.RESULT_CONTRYCODE);
-            String id = data.getStringExtra(CountrycodeActivity.RESULT_ID);
+            String countryCode = data.getStringExtra(ChooseActivity.RESULT_CONTRYCODE);
+            String id = data.getStringExtra(ChooseActivity.RESULT_ID);
 
             if (id.equals("0")) {
                 Calendar cal = Calendar.getInstance();
@@ -201,8 +205,8 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 }
                 db.updateYeuThich(countryCode, time);
                 Toast.makeText(getActivity(), "Thêm Thành Công!", Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(getActivity(), MainActivity.class);
-                //startActivity(intent);
+                /*Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);*/
             } else if (id.equals("1")) {
 
             }
@@ -230,6 +234,7 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         @Override
         protected Void doInBackground(Void... params) {
+            arrItem.clear();
             try {
                 URL url = new URL("http://m.sieuhack.mobi/json.php");
                 URLConnection conn = url.openConnection();
@@ -291,4 +296,23 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     }
 
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(r);
+    }
+
+    public void onResume() {
+        super.onResume();
+        r = new MyReceiver();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(r,
+                new IntentFilter("TAB_TRANGCHU"));
+    }
+
+    private class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onRefresh();
+        }
+    }
 }
+

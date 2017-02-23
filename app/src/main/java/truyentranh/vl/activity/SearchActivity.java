@@ -13,7 +13,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -109,7 +108,7 @@ public class SearchActivity extends AppCompatActivity  implements FragmentDrawer
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(getApplication(), CountrycodeActivity.class);
+                Intent intent = new Intent(getApplication(), ChooseActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id", countryList.get(position).getId());
                 intent.putExtra("key", bundle);
@@ -143,8 +142,8 @@ public class SearchActivity extends AppCompatActivity  implements FragmentDrawer
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            String countryCode = data.getStringExtra(CountrycodeActivity.RESULT_CONTRYCODE);
-            String id = data.getStringExtra(CountrycodeActivity.RESULT_ID);
+            String countryCode = data.getStringExtra(ChooseActivity.RESULT_CONTRYCODE);
+            String id = data.getStringExtra(ChooseActivity.RESULT_ID);
 
             if (id.equals("0")) {
                 Calendar cal = Calendar.getInstance();

@@ -15,7 +15,7 @@ import java.util.List;
 import truyentranh.vl.R;
 import truyentranh.vl.adapter.ListArrayAdapterChapDownload;
 
-public class DiglogDownload extends ListActivity {
+public class DialogDownload extends ListActivity {
 
     public static String RESULT_CONTRYCODE = "countrycode";
     public static String RESULT_ID = "1";

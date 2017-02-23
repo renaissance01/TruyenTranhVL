@@ -1,13 +1,17 @@
 package truyentranh.vl.fragments;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,6 +57,8 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private SmoothProgressBar mGoogleNow;
 
+    private MyReceiver r;
+
     public FavoriteFragment() {
 
     }
@@ -81,9 +87,9 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
         } catch (Exception e) {
         }
 
-        tvYeuThich1 = (TextView)rootView.findViewById(R.id.tvYeuThich1);
-        tvYeuThich2 = (TextView)rootView.findViewById(R.id.tvYeuThich2);
-        tvSoTruyen = (TextView)rootView.findViewById(R.id.tvSoTruyen);
+        tvYeuThich1 = (TextView) rootView.findViewById(R.id.tvYeuThich1);
+        tvYeuThich2 = (TextView) rootView.findViewById(R.id.tvYeuThich2);
+        tvSoTruyen = (TextView) rootView.findViewById(R.id.tvSoTruyen);
         mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
 
         if (arrItem.size() > 0) {
@@ -140,7 +146,7 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 final int idxoa = position;
-                AlertDialog.Builder b=new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
                 b.setTitle("Lựa Chọn");
                 b.setMessage("Bạn có muốn xóa " + arrItem.get(position).getTentruyen() + " không?");
                 b.setPositiveButton("Có", new DialogInterface.OnClickListener() {
@@ -162,8 +168,7 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 b.setNegativeButton("Không", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)
-                    {
+                    public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
@@ -196,6 +201,7 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         @Override
         protected Void doInBackground(Void... params) {
+            arrItem.clear();
             try {
                 URL url = new URL("http://m.sieuhack.mobi/json.php");
                 URLConnection conn = url.openConnection();
@@ -223,9 +229,9 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
                     String luotxem = String.valueOf(jObject.getString("luotxem"));
 
                     //if (db.getId(id))
-                        lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", luotxem);
+                    lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", luotxem);
                     //else
-                        //lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", "0");
+                    //lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", "0");
                     arrItem.add(lvMangaItem);
                 }
 
@@ -248,7 +254,7 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
                 adapter.notifyDataSetChanged();
             } catch (Exception e) {
             }
-            if(arrItem.size() == 0){
+            if (arrItem.size() == 0) {
                 tvYeuThich1.setVisibility(View.VISIBLE);
                 tvYeuThich2.setVisibility(View.VISIBLE);
             }
@@ -256,6 +262,25 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
             swipeRefreshLayout.setRefreshing(false);
         }
 
+    }
+
+    //Tải lại tab
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(r);
+    }
+
+    public void onResume() {
+        super.onResume();
+        r = new FavoriteFragment.MyReceiver();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(r,
+                new IntentFilter("TAB_YEUTHICH"));
+    }
+    private class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onRefresh();
+        }
     }
 
 }

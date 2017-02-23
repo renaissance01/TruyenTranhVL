@@ -7,15 +7,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,7 +35,7 @@ import javax.net.ssl.HttpsURLConnection;
 import butterknife.ButterKnife;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
-import truyentranh.vl.activity.DiglogDownload;
+import truyentranh.vl.activity.DialogDownload;
 import truyentranh.vl.adapter.LvChap;
 import truyentranh.vl.model.LvChapItem;
 import truyentranh.vl.slideimages.ShowImages;
@@ -140,7 +137,7 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 tenchap = String.valueOf(arrItem.get(position).getTenchap());
                 zipchap = String.valueOf(arrItem.get(position).getZipchap());
 
-                Intent intent = new Intent(getActivity(), DiglogDownload.class);
+                Intent intent = new Intent(getActivity(), DialogDownload.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("idtruyen", idtruyen);
                 bundle.putString("idchap", String.valueOf(Integer.valueOf(arrItem.get(position).getIdchap()) - 1));
@@ -189,13 +186,16 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         @Override
         protected Void doInBackground(Void... params) {
-
+            arrItem.clear();
             //Thêm Lượt Xem
             try {
-                URL url = new URL("http://m.sieuhack.mobi/themdata.php");
+                URL url = new URL("http://m.sieuhack.mobi/them-luotxem.php");
                 JSONObject postDataParams = new JSONObject();
                 postDataParams.put("id", Integer.parseInt(idtruyen) + 1);
                 postDataParams.put("luotxem", "1");
+
+                Log.e("Dữ Liệu:",postDataParams.toString());
+
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setReadTimeout(15000);
                 conn.setConnectTimeout(15000);
@@ -291,8 +291,8 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            String countryCode = data.getStringExtra(DiglogDownload.RESULT_CONTRYCODE);
-            String id = data.getStringExtra(DiglogDownload.RESULT_ID);
+            String countryCode = data.getStringExtra(DialogDownload.RESULT_CONTRYCODE);
+            String id = data.getStringExtra(DialogDownload.RESULT_ID);
 
             if (id.equals("0")) {
                 Intent intent = new Intent(getActivity(), DownloadService.class);

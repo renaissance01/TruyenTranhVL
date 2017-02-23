@@ -15,7 +15,7 @@ import java.util.List;
 import truyentranh.vl.R;
 import truyentranh.vl.adapter.ListArrayAdapter;
 
-public class CountrycodeActivity extends ListActivity {
+public class ChooseActivity extends ListActivity {
 
     public static String RESULT_CONTRYCODE = "countrycode";
     public static String RESULT_ID = "1";

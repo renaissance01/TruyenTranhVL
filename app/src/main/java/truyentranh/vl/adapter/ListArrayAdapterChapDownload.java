@@ -11,11 +11,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import truyentranh.vl.R;
-import truyentranh.vl.activity.DiglogDownload;
+import truyentranh.vl.activity.DialogDownload;
 
-public class ListArrayAdapterChapDownload extends ArrayAdapter<DiglogDownload.Country> {
+public class ListArrayAdapterChapDownload extends ArrayAdapter<DialogDownload.Country> {
 
-    private final List<DiglogDownload.Country> list;
+    private final List<DialogDownload.Country> list;
     private final Activity context;
 
     static class ViewHolder {
@@ -23,7 +23,7 @@ public class ListArrayAdapterChapDownload extends ArrayAdapter<DiglogDownload.Co
         protected ImageView flag;
     }
 
-    public ListArrayAdapterChapDownload(Activity context, List<DiglogDownload.Country> list) {
+    public ListArrayAdapterChapDownload(Activity context, List<DialogDownload.Country> list) {
         super(context, R.layout.activity_code_row, list);
         this.context = context;
         this.list = list;

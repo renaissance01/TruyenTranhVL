@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     //Session lưu tài khoản đăng nhập
     SharedPreferences sharedpreferences;
-    public static final String MyPREFERENCES = "UserPrefs" ;
+    public static final String MyPREFERENCES = "UserPrefs";
     public static final String HoTenKey = "hotenKey";
 
     private String tab;
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE},1);
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
             } else {
                 //Toast.makeText(MainActivity.this, "?", Toast.LENGTH_SHORT).show();
             }
@@ -125,17 +126,17 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
 
         //Select tab nếu nhận được key từ ChapActivity trả về
-        try{
+        try {
             tab = getIntent().getBundleExtra("key").getString("tab");
             //Toast.makeText(getApplication(), tab, Toast.LENGTH_SHORT).show();
-            if(tab != null && tab.equals("search") == false) {
+            if (tab != null && tab.equals("search") == false) {
                 //Trở lại tab comment
                 //finish();
                 //startActivity(getIntent());
                 TabLayout.Tab tabbar = tabLayout.getTabAt(Integer.parseInt(tab));
                 tabbar.select();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -153,8 +154,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                         bundle.putString("idchap", String.valueOf(Integer.valueOf(arrView.get(0).getIdchap())));
                         bundle.putString("tenchap", arrView.get(0).getTenchap());
                         bundle.putString("trang", arrView.get(0).getTrang());
-                        bundle.putString("tab", tab2+"");
-                        if(String.valueOf(Integer.valueOf(arrView.get(0).getIdtruyen())).equals("9999999"))
+                        bundle.putString("tab", tab2 + "");
+                        if (String.valueOf(Integer.valueOf(arrView.get(0).getIdtruyen())).equals("9999999"))
                             bundle.putString("checktaitruyen", "dangxemtai");
                         else
                             bundle.putString("checktaitruyen", "check");
@@ -163,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     } else {
                         Toast.makeText(getApplication(), "Bạn Chưa Xem Trang Nào!", Toast.LENGTH_SHORT).show();
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(getApplication(), "Bạn Chưa Xem Chap Nào!", Toast.LENGTH_SHORT).show();
                     Log.d("ChapActivity", e.toString());
                 }
@@ -224,22 +225,37 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                     case 0:
                         viewPager.setCurrentItem(0);
                         toolbar.setTitle("Trang Chủ");
+                        LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(getApplication());
+                        Intent i = new Intent("TAB_TRANGCHU");
+                        lbm.sendBroadcast(i);
                         break;
                     case 1:
                         viewPager.setCurrentItem(1);
                         toolbar.setTitle("Yêu Thích");
+                        LocalBroadcastManager lbm2 = LocalBroadcastManager.getInstance(getApplication());
+                        Intent i2 = new Intent("TAB_YEUTHICH");
+                        lbm2.sendBroadcast(i2);
                         break;
                     case 2:
                         viewPager.setCurrentItem(2);
                         toolbar.setTitle("Lịch Sử");
+                        LocalBroadcastManager lbm3 = LocalBroadcastManager.getInstance(getApplication());
+                        Intent i3 = new Intent("TAB_LICHSU");
+                        lbm3.sendBroadcast(i3);
                         break;
                     case 3:
                         viewPager.setCurrentItem(3);
                         toolbar.setTitle("Xem Nhiều");
+                        LocalBroadcastManager lbm4 = LocalBroadcastManager.getInstance(getApplication());
+                        Intent i4 = new Intent("TAB_XEMNHIEU");
+                        lbm4.sendBroadcast(i4);
                         break;
                     case 4:
                         viewPager.setCurrentItem(4);
                         toolbar.setTitle("Đã Tải Về Máy");
+                        LocalBroadcastManager lbm5 = LocalBroadcastManager.getInstance(getApplication());
+                        Intent i5 = new Intent("TAB_TAI");
+                        lbm5.sendBroadcast(i5);
                         break;
                     default:
                         viewPager.setCurrentItem(tab.getPosition());

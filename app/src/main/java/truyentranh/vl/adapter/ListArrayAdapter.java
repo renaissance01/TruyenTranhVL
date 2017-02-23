@@ -11,11 +11,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import truyentranh.vl.R;
-import truyentranh.vl.activity.CountrycodeActivity;
+import truyentranh.vl.activity.ChooseActivity;
 
-public class ListArrayAdapter extends ArrayAdapter<CountrycodeActivity.Country> {
+public class ListArrayAdapter extends ArrayAdapter<ChooseActivity.Country> {
 
-    private final List<CountrycodeActivity.Country> list;
+    private final List<ChooseActivity.Country> list;
     private final Activity context;
 
     static class ViewHolder {
@@ -23,7 +23,7 @@ public class ListArrayAdapter extends ArrayAdapter<CountrycodeActivity.Country> 
         protected ImageView flag;
     }
 
-    public ListArrayAdapter(Activity context, List<CountrycodeActivity.Country> list) {
+    public ListArrayAdapter(Activity context, List<ChooseActivity.Country> list) {
         super(context, R.layout.activity_code_row, list);
         this.context = context;
         this.list = list;

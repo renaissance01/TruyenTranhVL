@@ -1,11 +1,15 @@
 package truyentranh.vl.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,6 +57,8 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private SmoothProgressBar mGoogleNow;
+
+    private MyReceiver r;
 
     public HistoryFragment() {
 
@@ -192,6 +198,7 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         @Override
         protected Void doInBackground(Void... params) {
+            arrItem.clear();
             try {
                 URL url = new URL("http://m.sieuhack.mobi/json.php");
                 URLConnection conn = url.openConnection();
@@ -254,4 +261,22 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     }
 
+    //Tải lại tab
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(r);
+    }
+
+    public void onResume() {
+        super.onResume();
+        r = new HistoryFragment.MyReceiver();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(r,
+                new IntentFilter("TAB_LICHSU"));
+    }
+    private class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onRefresh();
+        }
+    }
 }

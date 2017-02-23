@@ -80,15 +80,15 @@
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.InfoActivity" />
         <activity
-            android:name=".activity.CountrycodeActivity"
+            android:name=".activity.ChooseActivity"
             android:label="Lựa Chọn"
             android:noHistory="true"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth" />
         <activity
-            android:name=".activity.DiglogDownload"
+            android:name=".activity.DialogDownload"
             android:label="Lựa Chọn"
             android:noHistory="true"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth" />
         <activity
             android:name=".slideimages.NumberPickerActivity"
             android:label="Chọn Trang"

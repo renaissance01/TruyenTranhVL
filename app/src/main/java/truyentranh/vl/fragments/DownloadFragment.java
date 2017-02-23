@@ -1,13 +1,17 @@
 package truyentranh.vl.fragments;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +49,8 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private SmoothProgressBar mGoogleNow;
 
+    private MyReceiver r;
+
     public DownloadFragment() {
 
     }
@@ -78,6 +84,7 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
         tvYeuThich1 = (TextView) rootView.findViewById(R.id.tvYeuThich1);
         tvYeuThich2 = (TextView) rootView.findViewById(R.id.tvYeuThich2);
         tvSoTruyen = (TextView) rootView.findViewById(R.id.tvSoTruyen);
+
         if (arrItem.size() > 0) {
             arrItem.clear();
             tvYeuThich1.setVisibility(View.GONE);
@@ -192,6 +199,7 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         @Override
         protected Void doInBackground(Void... params) {
+            arrItem.clear();
             try {
                 for (int i = 0; i < arrId.size(); i++) {
                     lvDownloadItem = new LvDownloadItem(arrId.get(i).getIdtruyen(), arrId.get(i).getIdchap(), arrId.get(i).getAvatar(), arrId.get(i).getTentruyen(), arrId.get(i).getTacgia(), arrId.get(i).getTenchap(), "0");
@@ -226,4 +234,22 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     }
 
+    //Tải lại tab
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(r);
+    }
+
+    public void onResume() {
+        super.onResume();
+        r = new DownloadFragment.MyReceiver();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(r,
+                new IntentFilter("TAB_TAI"));
+    }
+    private class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onRefresh();
+        }
+    }
 }
