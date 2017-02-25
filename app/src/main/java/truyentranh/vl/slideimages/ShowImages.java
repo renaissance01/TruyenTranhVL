@@ -344,13 +344,13 @@ public class ShowImages extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     if (checktaitruyen.equals("checktaitruyen")) {
-                        finish();
-                        /*Toast.makeText(getApplication(), tab+"", Toast.LENGTH_SHORT).show();
+                        //finish();
+                        //Toast.makeText(getApplication(), tab+"", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ShowImages.this, MainActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString("tab", tab);
                         intent.putExtra("key", bundle);
-                        startActivity(intent);*/
+                        startActivity(intent);
                     } else if (checktaitruyen.equals("docfile")) {
                         finish();
                     } else if (checktaitruyen.equals("dangxemtai")) {

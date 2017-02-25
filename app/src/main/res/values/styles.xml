@@ -11,8 +11,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="MyMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="MyTabLayoutTextAppearance" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">#FFF</item>
@@ -31,6 +34,14 @@
         <item name="spb_colors">@array/gplus_colors</item>
         <item name="spb_progressiveStart_activated">true</item>
         <item name="spb_generate_background_with_colors">false</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#DC143C</item>
+        <item name="android:textColorSecondary">#008000</item>
     </style>
 
 </resources>

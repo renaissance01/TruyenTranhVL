@@ -37,6 +37,18 @@
     <string name="title_choose_file">Chọn File Truyện .ZIP hoặc .RAR</string>
     <string name="chon">Chọn</string>
     <string name="thoat">Thoát</string>
+    <string name="title_activity_the_loai_activitry">Thể Loại Truyện</string>
 
-
+    <array name="rainbow">
+        <item>@color/listColor1</item>
+        <item>@color/listColor2</item>
+        <item>@color/listColor3</item>
+        <item>@color/listColor4</item>
+        <item>@color/listColor5</item>
+        <item>@color/listColor6</item>
+        <item>@color/listColor7</item>
+        <item>@color/listColor8</item>
+        <item>@color/listColor9</item>
+        <item>@color/listColor10</item>
+    </array>
 </resources>

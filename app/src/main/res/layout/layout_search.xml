@@ -2,21 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_marginTop="65dp"
+    android:layout_marginTop="56dp"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/myFilter"
+    <RelativeLayout
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/edittext_border"
-        android:layout_margin="5dp"
-        android:textSize="14sp"
-        android:ems="10"
-        android:hint="Nhập từ khóa...">
+        android:background="@color/colorPrimary"
+        android:padding="5dp">
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/myFilter"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@android:color/white"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_search"
+            android:hint="Nhập Tên Truyện Cần Tìm"
+            android:paddingEnd="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingStart="10dp" />
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/listView1"

@@ -44,7 +44,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="15dp"
-        android:text="BẠN CHƯA XEM TRUYỆN NÀO"
+        android:text=""
         android:textColor="#000"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvHistory"
         android:layout_centerHorizontal="true"
-        android:text="Danh sách sẽ được cập nhật khi bạn xem truyện"
+        android:text=""
         android:visibility="gone" />
 
 </RelativeLayout>

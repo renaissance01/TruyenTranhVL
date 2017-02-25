@@ -94,13 +94,16 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         if (arrItem.size() > 0) {
             arrItem.clear();
+            tvYeuThich1.setVisibility(View.VISIBLE);
+            tvYeuThich2.setVisibility(View.VISIBLE);
+        } else {
             tvYeuThich1.setVisibility(View.GONE);
             tvYeuThich2.setVisibility(View.GONE);
         }
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_bright);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -201,7 +204,11 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         @Override
         protected Void doInBackground(Void... params) {
-            arrItem.clear();
+
+            if (arrItem.size() > 0) {
+                arrItem.clear();
+            }
+
             try {
                 URL url = new URL("http://m.sieuhack.mobi/json.php");
                 URLConnection conn = url.openConnection();
@@ -255,8 +262,13 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
             } catch (Exception e) {
             }
             if (arrItem.size() == 0) {
+                tvYeuThich1.setText("CHƯA CÓ TRUYỆN YÊU THÍCH");
+                tvYeuThich2.setText("Ấn giữ vào truyện chọn Thêm Vào Yêu Thích");
                 tvYeuThich1.setVisibility(View.VISIBLE);
                 tvYeuThich2.setVisibility(View.VISIBLE);
+            } else {
+                tvYeuThich1.setVisibility(View.GONE);
+                tvYeuThich2.setVisibility(View.GONE);
             }
             tvSoTruyen.setText(arrItem.size() + " Truyện");
             swipeRefreshLayout.setRefreshing(false);
@@ -276,6 +288,7 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(r,
                 new IntentFilter("TAB_YEUTHICH"));
     }
+
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {

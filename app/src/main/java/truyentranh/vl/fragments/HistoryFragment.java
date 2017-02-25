@@ -51,7 +51,7 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     private Database db;
     private ArrayList<String> arrId = new ArrayList<>();
-    private TextView tvHistory, tvHistory2,tvSoTruyen;
+    private TextView tvHistory, tvHistory2, tvSoTruyen;
 
     //Refresh
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -90,21 +90,24 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
         } catch (Exception e) {
         }
 
-        tvHistory = (TextView)rootView.findViewById(R.id.tvHistory);
-        tvHistory2 = (TextView)rootView.findViewById(R.id.tvHistory2);
-        tvSoTruyen = (TextView)rootView.findViewById(R.id.tvSoTruyen);
+        tvHistory = (TextView) rootView.findViewById(R.id.tvHistory);
+        tvHistory2 = (TextView) rootView.findViewById(R.id.tvHistory2);
+        tvSoTruyen = (TextView) rootView.findViewById(R.id.tvSoTruyen);
 
         mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
 
         if (arrItem.size() > 0) {
             arrItem.clear();
+            tvHistory.setVisibility(View.VISIBLE);
+            tvHistory2.setVisibility(View.VISIBLE);
+        }else{
             tvHistory.setVisibility(View.GONE);
             tvHistory2.setVisibility(View.GONE);
         }
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_bright);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -155,7 +158,7 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_delete){
+        if (id == R.id.action_delete) {
             if (arrItem.size() > 0) {
                 db.xoaLichSu();
                 arrItem.clear();
@@ -168,7 +171,7 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 //Refresh fragment
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.detach(this).attach(this).commit();
-            }else{
+            } else {
                 Toast.makeText(getActivity(), "Lịch Sử Rỗng!", Toast.LENGTH_SHORT).show();
             }
 
@@ -198,7 +201,11 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         @Override
         protected Void doInBackground(Void... params) {
-            arrItem.clear();
+
+            if (arrItem.size() > 0) {
+                arrItem.clear();
+            }
+
             try {
                 URL url = new URL("http://m.sieuhack.mobi/json.php");
                 URLConnection conn = url.openConnection();
@@ -216,7 +223,7 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 JSONArray jsonArray = new JSONArray(builder.toString());
 
                 for (int i = 0; i < arrId.size(); i++) {
-                    JSONObject jObject = jsonArray.getJSONObject(Integer.valueOf(arrId.get(i))-1);
+                    JSONObject jObject = jsonArray.getJSONObject(Integer.valueOf(arrId.get(i)) - 1);
                     JSONArray jsonArray2 = jObject.optJSONArray("chap");
 
                     String id = jObject.getString("id");
@@ -226,9 +233,9 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     String luotxem = String.valueOf(jObject.getString("luotxem"));
 
                     //if (db.getId(id))
-                        lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", luotxem);
+                    lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", luotxem);
                     //else
-                        //lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", "0");
+                    //lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", "0");
                     arrItem.add(lvMangaItem);
                 }
 
@@ -251,9 +258,14 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 adapter.notifyDataSetChanged();
             } catch (Exception e) {
             }
-            if(arrItem.size() == 0){
+            if (arrItem.size() == 0) {
+                tvHistory.setText("BẠN CHƯA XEM TRUYỆN NÀO");
+                tvHistory2.setText("Danh sách sẽ được cập nhật khi bạn xem truyện");
                 tvHistory.setVisibility(View.VISIBLE);
                 tvHistory2.setVisibility(View.VISIBLE);
+            } else {
+                tvHistory.setVisibility(View.GONE);
+                tvHistory2.setVisibility(View.GONE);
             }
             tvSoTruyen.setText(arrItem.size() + " Truyện");
             swipeRefreshLayout.setRefreshing(false);
@@ -273,6 +285,7 @@ public class HistoryFragment extends Fragment implements SwipeRefreshLayout.OnRe
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(r,
                 new IntentFilter("TAB_LICHSU"));
     }
+
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {

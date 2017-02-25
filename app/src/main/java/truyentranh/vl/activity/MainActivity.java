@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         // check for Internet status
         if (!isInternetPresent) {
             showAlertDialog(MainActivity.this, "Lỗi Kết Nối!",
-                    "Vui Lòng Bật Mạng Để Đọc Truyện", false);
+                    "Bạn Chỉ Có Thể Đọc Truyện Offline", false);
         }
 
         //Check quyền đọc thẻ nhở api 23 trở lên

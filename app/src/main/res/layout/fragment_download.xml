@@ -38,25 +38,25 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
-        android:id="@+id/tvYeuThich1"
+        android:id="@+id/tvDownload1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="10dp"
-        android:text="CHƯA CÓ CHAP TRUYỆN TẢI VỀ"
+        android:text=""
         android:textColor="#000"
         android:textSize="20dp"
         android:textStyle="bold"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/tvYeuThich2"
+        android:id="@+id/tvDownload2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvYeuThich1"
+        android:layout_below="@+id/tvDownload1"
         android:layout_centerHorizontal="true"
-        android:text="Ấn giữ vào chap truyện và chọn Tải Chap Này Về"
+        android:text=""
         android:visibility="gone" />
 
 </RelativeLayout>

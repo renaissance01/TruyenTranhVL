@@ -36,7 +36,7 @@ public class InfoFragment extends Fragment {
     private ListView lvChap;
     private ArrayList<InfoItem> arrItem = new ArrayList<>();
     private LvChap adapter = null;
-    private String idtruyen, sochap, nhanbiet;
+    private String idtruyen, sochap, nhanbiet, tab;
     private ImageView tvAvatarInfo;
     private TextView tvTenTruyen, tvTenKhac, tvTacGia, tvChap, tvTinhTrang, tvMoTa;
     private InfoItem infoitem;
@@ -73,6 +73,7 @@ public class InfoFragment extends Fragment {
         idtruyen = getActivity().getIntent().getBundleExtra("key").getString("id");
         sochap = getActivity().getIntent().getBundleExtra("key").getString("sochap");
         nhanbiet = getActivity().getIntent().getBundleExtra("key").getString("nhanbiet");
+        tab = getActivity().getIntent().getBundleExtra("key").getString("tab");
 
         mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
 
@@ -93,6 +94,7 @@ public class InfoFragment extends Fragment {
                 bundle.putString("idtruyen", (Integer.parseInt(idtruyen) + 1) + "");
                 bundle.putString("tentruyen", infoitem.getTentruyen());
                 bundle.putString("trang", "1");
+                bundle.putString("tab", tab);
                 intent.putExtra("key", bundle);
                 startActivity(intent);
             }

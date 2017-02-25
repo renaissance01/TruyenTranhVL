@@ -45,4 +45,14 @@
     <color name="gplus_color_3">#427fed</color>
     <color name="gplus_color_4">#b23424</color>
 
+    <color name="listColor1">#FCAE18</color>
+    <color name="listColor2">#F42B2B</color>
+    <color name="listColor3">#07B9BB</color>
+    <color name="listColor4">#6B6EF8</color>
+    <color name="listColor5">#A75FFF</color>
+    <color name="listColor6">#52B37D</color>
+    <color name="listColor7">#93B940</color>
+    <color name="listColor8">#FA8044</color>
+    <color name="listColor9">#19BAE8</color>
+    <color name="listColor10">#449DE0</color>
 </resources>

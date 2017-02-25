@@ -42,7 +42,7 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private Database db;
     private ArrayList<DbTaiTruyen> arrId = new ArrayList<>();
-    private TextView tvYeuThich1, tvYeuThich2, tvSoTruyen;
+    private TextView tvDownload1, tvDownload2, tvSoTruyen;
 
     //Refresh
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -81,19 +81,22 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
         } catch (Exception e) {
         }
 
-        tvYeuThich1 = (TextView) rootView.findViewById(R.id.tvYeuThich1);
-        tvYeuThich2 = (TextView) rootView.findViewById(R.id.tvYeuThich2);
+        tvDownload1 = (TextView) rootView.findViewById(R.id.tvDownload1);
+        tvDownload2 = (TextView) rootView.findViewById(R.id.tvDownload2);
         tvSoTruyen = (TextView) rootView.findViewById(R.id.tvSoTruyen);
 
         if (arrItem.size() > 0) {
             arrItem.clear();
-            tvYeuThich1.setVisibility(View.GONE);
-            tvYeuThich2.setVisibility(View.GONE);
+            tvDownload1.setVisibility(View.VISIBLE);
+            tvDownload2.setVisibility(View.VISIBLE);
+        } else {
+            tvDownload1.setVisibility(View.GONE);
+            tvDownload2.setVisibility(View.GONE);
         }
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_bright);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -199,7 +202,11 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         @Override
         protected Void doInBackground(Void... params) {
-            arrItem.clear();
+
+            if (arrItem.size() > 0) {
+                arrItem.clear();
+            }
+
             try {
                 for (int i = 0; i < arrId.size(); i++) {
                     lvDownloadItem = new LvDownloadItem(arrId.get(i).getIdtruyen(), arrId.get(i).getIdchap(), arrId.get(i).getAvatar(), arrId.get(i).getTentruyen(), arrId.get(i).getTacgia(), arrId.get(i).getTenchap(), "0");
@@ -225,8 +232,13 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
             } catch (Exception e) {
             }
             if (arrItem.size() == 0) {
-                tvYeuThich1.setVisibility(View.VISIBLE);
-                tvYeuThich2.setVisibility(View.VISIBLE);
+                tvDownload1.setText("CHƯA CÓ CHAP TRUYỆN TẢI VỀ");
+                tvDownload2.setText("Ấn giữ vào chap truyện và chọn Tải Chap Này Về");
+                tvDownload1.setVisibility(View.VISIBLE);
+                tvDownload2.setVisibility(View.VISIBLE);
+            } else {
+                tvDownload1.setVisibility(View.GONE);
+                tvDownload2.setVisibility(View.GONE);
             }
             tvSoTruyen.setText(arrItem.size() + " Chap");
             swipeRefreshLayout.setRefreshing(false);
@@ -246,6 +258,7 @@ public class DownloadFragment extends Fragment implements SwipeRefreshLayout.OnR
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(r,
                 new IntentFilter("TAB_TAI"));
     }
+
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {

@@ -146,15 +146,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="2dp"
-        android:layout_marginTop="2dp"
-        android:background="#578">
-
-    </LinearLayout>
+    <!--    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:background="#578"/>-->
 
     <TextView
         android:id="@+id/tvMoTa"

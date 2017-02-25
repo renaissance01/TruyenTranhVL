@@ -46,7 +46,8 @@ public class HideFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private LvManga adapter = null;
     private ListView lvManga = null;
     private LvMangaItem lvMangaItem;
-    private TextView tvHide, tvHide2, tvSoTruyen;;
+    private TextView tvHide, tvHide2, tvSoTruyen;
+    ;
     private Database db;
 
     //Refresh
@@ -83,21 +84,24 @@ public class HideFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         } catch (Exception e) {
         }
 
-        tvHide = (TextView)rootView.findViewById(R.id.tvHide);
-        tvHide2 = (TextView)rootView.findViewById(R.id.tvHide2);
+        tvHide = (TextView) rootView.findViewById(R.id.tvHide);
+        tvHide2 = (TextView) rootView.findViewById(R.id.tvHide2);
         tvSoTruyen = (TextView) rootView.findViewById(R.id.tvSoTruyen);
 
         mGoogleNow = (SmoothProgressBar) rootView.findViewById(R.id.google_now);
 
         if (arrItem.size() > 0) {
             arrItem.clear();
+            tvHide.setVisibility(View.VISIBLE);
+            tvHide2.setVisibility(View.VISIBLE);
+        }else{
             tvHide.setVisibility(View.GONE);
             tvHide2.setVisibility(View.GONE);
         }
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_bright);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -207,7 +211,11 @@ public class HideFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         @Override
         protected Void doInBackground(Void... params) {
-            arrItem.clear();
+
+            if (arrItem.size() > 0) {
+                arrItem.clear();
+            }
+
             try {
                 URL url = new URL("http://m.sieuhack.mobi/json.php?thuoctinh=top10");
                 URLConnection conn = url.openConnection();
@@ -261,11 +269,16 @@ public class HideFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             } catch (Exception e) {
             }
 
-            if(arrItem.size() == 0){
+            if (arrItem.size() == 0) {
+                tvHide.setText("CHƯA CÓ TRUYỆN NÀO");
+                tvHide2.setText("Danh sách sẽ được cập nhật khi mọi người xem truyện");
                 tvHide.setVisibility(View.VISIBLE);
                 tvHide2.setVisibility(View.VISIBLE);
+            } else {
+                tvHide.setVisibility(View.GONE);
+                tvHide2.setVisibility(View.GONE);
             }
-            tvSoTruyen.setText(arrItem.size() + " truyện xem nhiều nhất");
+            tvSoTruyen.setText(arrItem.size() + " Truyện");
             swipeRefreshLayout.setRefreshing(false);
         }
 
@@ -283,6 +296,7 @@ public class HideFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(r,
                 new IntentFilter("TAB_XEMNHIEU"));
     }
+
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {

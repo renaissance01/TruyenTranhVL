@@ -44,7 +44,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="10dp"
-        android:text="CHƯA CÓ TRUYỆN YÊU THÍCH"
+        android:text=""
         android:textColor="#000"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvYeuThich1"
         android:layout_centerHorizontal="true"
-        android:text="Ấn giữ vào truyện chọn Thêm Vào Yêu Thích"
+        android:text=""
         android:visibility="gone" />
 
 </RelativeLayout>

@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         // check for Internet status
         if (!isInternetPresent) {
             showAlertDialog(LoginActivity.this, "Lỗi Kết Nối!",
-                    "Vui Lòng Bật Mạng Để Đọc Truyện", false);
+                    "Vui Lòng Bật Mạng Để Đăng Nhập Tài Khoản", false);
         }
 
         //Session lưu tài khoản đăng nhập

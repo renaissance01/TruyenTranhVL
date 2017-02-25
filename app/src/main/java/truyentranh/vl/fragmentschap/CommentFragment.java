@@ -18,10 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -49,6 +51,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private LvCommentItem lvCommentItem;
     private Button btnGui;
     private EditText txtNoiDung;
+    private TextView tvBinhLuan;
     //Session lưu tài khoản đăng nhập
 
     SharedPreferences sharedpreferences;
@@ -81,6 +84,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
         lvComment = (ListView) rootView.findViewById(R.id.lvComment);
         btnGui = (Button) rootView.findViewById(R.id.btnGui);
         txtNoiDung = (EditText) rootView.findViewById(R.id.txtNoiDung);
+        tvBinhLuan = (TextView) rootView.findViewById(R.id.tvBinhLuan);
 
         idtruyen = getActivity().getIntent().getBundleExtra("key").getString("id");
         tentruyen = getActivity().getIntent().getBundleExtra("key").getString("tentruyen");
@@ -102,7 +106,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_bright);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -180,7 +184,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     String dateString = format.format(new Date(Long.parseLong(thoigian)));
 
                     String noidung = String.valueOf(jObject.getString("noidung"));
-                    arrItem.add(new LvCommentItem(i+1 + "", hoten, dateString, noidung));
+                    arrItem.add(new LvCommentItem(i + 1 + "", hoten, dateString, noidung));
                 }
             } catch (Exception e) {
                 Log.e("MY_WATCH", "Lỗi CommentFragment: " + e.getMessage());
@@ -197,6 +201,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
             try {
                 /*new ImageLoadTask(infoitem.getAvatar(), tvAvatarInfo).execute();
                 tvTenTruyen.setText(infoitem.getTentruyen());*/
+                tvBinhLuan.setText("Bình Luận (" + arrItem.size() + ")");
                 adapter = new LvComment(getActivity(), R.layout.comment_listview, arrItem);
                 lvComment.setAdapter(adapter);
                 adapter.notifyDataSetChanged();

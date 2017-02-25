@@ -91,7 +91,7 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_bright);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -186,7 +186,11 @@ public class ChapFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         @Override
         protected Void doInBackground(Void... params) {
-            arrItem.clear();
+
+            if (arrItem.size() > 0) {
+                arrItem.clear();
+            }
+
             //Thêm Lượt Xem
             try {
                 URL url = new URL("http://m.sieuhack.mobi/them-luotxem.php");

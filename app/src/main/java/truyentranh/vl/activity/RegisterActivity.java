@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         // check for Internet status
         if (!isInternetPresent) {
             showAlertDialog(RegisterActivity.this, "Lỗi Kết Nối!",
-                    "Vui Lòng Bật Mạng Để Đọc Truyện", false);
+                    "Vui Lòng Bật Mạng Để Đăng Ký Tài Khoản", false);
         }
     }
 

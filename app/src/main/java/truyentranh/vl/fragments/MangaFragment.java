@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,9 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -30,12 +34,14 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import truyentranh.vl.R;
 import truyentranh.vl.activity.ChapActivity;
 import truyentranh.vl.activity.ChooseActivity;
 import truyentranh.vl.activity.MainActivity;
+import truyentranh.vl.activity.TheLoaiActivitry;
 import truyentranh.vl.adapter.LvManga;
 import truyentranh.vl.database.Database;
 import truyentranh.vl.model.DbItem;
@@ -57,6 +63,12 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     private MyReceiver r;
 
+    //Session lưu thể loại truyện
+    SharedPreferences sharedpreferences;
+    public static final String MyPREFERENCES = "TheLoaiPrefs";
+    //private List<String> arrTheLoai = new ArrayList<>();
+    private int tongtheloaiKey = 0;
+
     public MangaFragment() {
 
     }
@@ -72,11 +84,25 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         View rootView = inflater.inflate(R.layout.fragment_manga,
                 container, false);
 
+        //Khởi tạo item lọc truyện
+        setHasOptionsMenu(true);
+
         //Xử lý database;
         db = new Database(getActivity());
 
         //Truyện
         lvManga = (ListView) rootView.findViewById(R.id.lvManga);
+
+
+
+
+        /*for (int i = 0; i < tongtheloaiKey; i++) {
+            try {
+                arrTheLoai.add(sharedpreferences.getString("theloaiKey" + i, "TamPro"));
+                Toast.makeText(getActivity(), arrTheLoai.get(0) + "", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+            }
+        }*/
 
         try {
             //Json
@@ -91,12 +117,14 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         if (arrItem.size() > 0) {
             arrItem.clear();
+            tvManga.setVisibility(View.VISIBLE);
+        } else {
             tvManga.setVisibility(View.GONE);
         }
 
         //Refresh
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.doNhe);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_bright);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
@@ -190,6 +218,22 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getActivity().getMenuInflater().inflate(R.menu.menu_loctruyen, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_loctruyen) {
+            startActivity(new Intent(getActivity(), TheLoaiActivitry.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
@@ -234,7 +278,11 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
         @Override
         protected Void doInBackground(Void... params) {
-            arrItem.clear();
+
+            if (arrItem.size() > 0) {
+                arrItem.clear();
+            }
+
             try {
                 URL url = new URL("http://m.sieuhack.mobi/json.php");
                 URLConnection conn = url.openConnection();
@@ -260,12 +308,32 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     String tentruyen = String.valueOf(jObject.getString("tentruyen"));
                     String tacgia = String.valueOf(jObject.getString("tacgia"));
                     String luotxem = String.valueOf(jObject.getString("luotxem"));
+                    String theloai = String.valueOf(jObject.getString("theloai"));
 
-                    //if (db.getId(id))
-                    lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", luotxem);
-                    //else
-                    //lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", "0");
-                    arrItem.add(lvMangaItem);
+                    sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                    tongtheloaiKey = sharedpreferences.getInt("tongtheloaiKey", 0);
+                    try {
+                        if (tongtheloaiKey != 0) {
+                            String theloai2 = null;
+                            for (int j = 0; j < tongtheloaiKey; j++) {
+                                try {
+                                    theloai2 = sharedpreferences.getString("theloaiKey" + j, "TamPro");
+                                } catch (Exception e) {
+                                    theloai2 = "TamPro";
+                                }
+                                if (theloai.equals(theloai2)) {
+                                    lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", luotxem);
+                                    arrItem.add(lvMangaItem);
+                                }
+                            }
+                        } else {
+                            lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", luotxem);
+                            arrItem.add(lvMangaItem);
+                        }
+                    } catch (Exception e) {
+                        lvMangaItem = new LvMangaItem(id, avatar, tentruyen, tacgia, jsonArray2.length() + "", luotxem);
+                        arrItem.add(lvMangaItem);
+                    }
                 }
 
             } catch (Exception e) {
@@ -288,7 +356,10 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             } catch (Exception e) {
             }
             if (arrItem.size() == 0) {
+                tvManga.setText("CHƯA CÓ TRUYỆN");
                 tvManga.setVisibility(View.VISIBLE);
+            } else {
+                tvManga.setVisibility(View.GONE);
             }
             tvSoTruyen.setText(arrItem.size() + " Truyện");
             swipeRefreshLayout.setRefreshing(false);
