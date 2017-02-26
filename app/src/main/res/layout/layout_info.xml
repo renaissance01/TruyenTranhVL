@@ -11,7 +11,7 @@
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_logo" />
+        android:src="@mipmap/ic_logo" />
 
     <TextView
         android:id="@+id/textView3"
@@ -23,6 +23,12 @@
         android:textSize="20dp"
         android:textStyle="bold" />
 
+    <com.wang.avi.AVLoadingIndicatorView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/bg_login"
+        app:indicatorName="BallClipRotatePulseIndicator" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -30,22 +36,22 @@
         android:layout_marginTop="5dp"
         android:text="Mỗi Ngày Chỉ Nên Đọc Tối Đa 2 Tiếng :)"
         android:textColor="#000"
-        android:textSize="14dp"/>
+        android:textSize="14dp" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_marginTop="5dp"
-        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        android:padding="10dp">
 
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:text="Ứng dụng đọc truyện được phát triển bởi Poly và đang được hoàn thiện..."
-            android:id="@+id/textView4" />
+            android:text="Ứng dụng đọc truyện online và offline được phát triển bởi Nhóm Poly Tâm-Tùng-Minh"
+            android:textColor="#000" />
     </LinearLayout>
 
 

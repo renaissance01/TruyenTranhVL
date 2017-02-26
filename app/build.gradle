@@ -45,4 +45,8 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
 
     compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
+
+    //Animation
+    compile 'com.github.ybq:Android-SpinKit:1.1.0'
+    compile 'com.wang.avi:library:2.1.3'
 }
