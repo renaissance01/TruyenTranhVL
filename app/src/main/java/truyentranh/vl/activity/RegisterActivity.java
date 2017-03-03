@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         tvDangNhap = (TextView) findViewById(R.id.tvDangNhap);
         //Thiết lập font để sử dụng từ assets
-        Typeface face = Typeface.createFromAsset(getAssets(),"fonts/dangnhap.ttf");
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/dangnhap.ttf");
         //Thiết lập font cho TextView
         tvDangNhap.setTypeface(face);
 
@@ -79,12 +79,29 @@ public class RegisterActivity extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (txtTaiKhoan.getText().toString().trim().equals("") || txtMatKhau.getText().toString().trim().equals("") || txtMatKhau2.getText().toString().trim().equals("") || txtHoTen.getText().toString().trim().equals("")) {
-                    Toast.makeText(getApplication(), "Vui Lòng Nhập Đầy Đủ Thông Tin", Toast.LENGTH_SHORT).show();
-                } else if (txtMatKhau.getText().toString().trim().equals(txtMatKhau2.getText().toString().trim()) == false) {
-                    Toast.makeText(getApplication(), "2 Mật Khẩu Phải Khớp Nhau", Toast.LENGTH_SHORT).show();
-                } else {
-                    new SendRequest().execute();
+                int i = 0;
+                if (txtTaiKhoan.getText().toString().trim().equals("")) {
+                    txtTaiKhoan.setError("Không được để trống!");
+                    i = 1;
+                }
+                if (txtMatKhau.getText().toString().trim().equals("")) {
+                    txtMatKhau.setError("Không được để trống!");
+                    i = 1;
+                }
+                if (txtMatKhau2.getText().toString().trim().equals("")) {
+                    txtMatKhau2.setError("Không được để trống!");
+                    i = 1;
+                }
+                if (txtHoTen.getText().toString().trim().equals("")) {
+                    txtHoTen.setError("Không được để trống!");
+                    i = 1;
+                }
+                if (i == 0) {
+                    if (txtMatKhau.getText().toString().trim().equals(txtMatKhau2.getText().toString().trim()) == false) {
+                        Toast.makeText(getApplication(), "2 Mật Khẩu Phải Khớp Nhau", Toast.LENGTH_SHORT).show();
+                    } else {
+                        new SendRequest().execute();
+                    }
                 }
                 /*Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);*/
@@ -193,7 +210,7 @@ public class RegisterActivity extends AppCompatActivity {
             } else if (result.equals("Tai Khoan Da Ton Tai")) {
                 Toast.makeText(getApplicationContext(), "Tài Khoản Đã Tồn Tại",
                         Toast.LENGTH_LONG).show();
-            }else {
+            } else {
                 Toast.makeText(getApplicationContext(), result,
                         Toast.LENGTH_LONG).show();
             }

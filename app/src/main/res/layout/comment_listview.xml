@@ -27,6 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
+                android:visibility="gone"
                 android:textColor="@drawable/button_text"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -36,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=". "
+                android:visibility="gone"
                 android:textColor="@drawable/button_text"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -73,6 +75,7 @@
                     android:id="@+id/sdsđsd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="Nội dung: "
                     android:textColor="#717172"
                     android:textStyle="italic" />

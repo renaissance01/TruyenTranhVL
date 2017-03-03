@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -49,7 +53,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private String idtruyen, tentruyen, sochap, nhanbiet, tab;
     private ImageView tvAvatarInfo;
     private LvCommentItem lvCommentItem;
-    private Button btnGui;
+    private ImageView btnGui;
     private EditText txtNoiDung;
     private TextView tvBinhLuan;
     //Session lưu tài khoản đăng nhập
@@ -82,9 +86,20 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
         String hoten = sharedpreferences.getString(HoTenKey, null);
 
         lvComment = (ListView) rootView.findViewById(R.id.lvComment);
-        btnGui = (Button) rootView.findViewById(R.id.btnGui);
+        btnGui = (ImageView) rootView.findViewById(R.id.btnGui);
         txtNoiDung = (EditText) rootView.findViewById(R.id.txtNoiDung);
         tvBinhLuan = (TextView) rootView.findViewById(R.id.tvBinhLuan);
+
+        /*
+        //Set màu cho edittext
+        Drawable drawable = txtNoiDung.getBackground();
+        drawable.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_ATOP);
+
+        if(Build.VERSION.SDK_INT > 16) {
+            txtNoiDung.setBackground(drawable);
+        }else{
+            txtNoiDung.setBackgroundDrawable(drawable);
+        }*/
 
         idtruyen = getActivity().getIntent().getBundleExtra("key").getString("id");
         tentruyen = getActivity().getIntent().getBundleExtra("key").getString("tentruyen");
@@ -120,7 +135,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onClick(View v) {
                 if (txtNoiDung.getText().toString().trim().equals("")) {
-                    Toast.makeText(getActivity(), "Chưa Nhập Nôi Dung À?", Toast.LENGTH_SHORT).show();
+                    txtNoiDung.setError("Không được để trống!");
                 } else {
                     Intent intent = new Intent(getActivity(), Comment.class);
                     Bundle bundle = new Bundle();
@@ -187,7 +202,7 @@ public class CommentFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     arrItem.add(new LvCommentItem(i + 1 + "", hoten, dateString, noidung));
                 }
             } catch (Exception e) {
-                Log.e("MY_WATCH", "Lỗi CommentFragment: " + e.getMessage());
+                Log.e("MY_WATCH", "Lỗi CommentFragment: " + e.toString());
             }
             return null;
         }

@@ -66,10 +66,13 @@ public class ChapActivity extends AppCompatActivity implements FragmentDrawer.Fr
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
 
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
         if (comment != null) {
             //Trở lại tab comment
             TabLayout.Tab tab = tabLayout.getTabAt(2);
             tab.select();
+            fab.hide();
         }
 
         if (trang != null) {
@@ -78,7 +81,6 @@ public class ChapActivity extends AppCompatActivity implements FragmentDrawer.Fr
             tab.select();
         }
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,14 +118,21 @@ public class ChapActivity extends AppCompatActivity implements FragmentDrawer.Fr
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case 0:
+                        fab.show();
                         viewPager.setCurrentItem(0);
                         toolbar.setTitle(tentruyen);
                         break;
                     case 1:
+                        fab.show();
                         viewPager.setCurrentItem(1);
                         toolbar.setTitle(tentruyen);
                         break;
                     case 2:
+                        if (comment == null) {
+                            fab.hide();
+                        }else{
+                            fab.hide();
+                        }
                         viewPager.setCurrentItem(2);
                         toolbar.setTitle(tentruyen);
                         break;

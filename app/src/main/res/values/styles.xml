@@ -44,4 +44,8 @@
         <item name="android:textColorSecondary">#008000</item>
     </style>
 
+    <style name="ThemeEditText" parent="MyMaterialTheme.Base">
+        <item name="colorAccent">#000</item>
+    </style>
+
 </resources>

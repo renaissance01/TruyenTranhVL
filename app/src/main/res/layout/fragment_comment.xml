@@ -1,8 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvBinhLuan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="5dp"
+        android:text=""
+        android:textColor="#FFF"
+        android:textSize="15dp"
+        android:textStyle="bold" />
 
     <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
         android:id="@+id/google_now"
@@ -12,51 +22,16 @@
         android:indeterminate="true"
         android:visibility="visible" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Nhập Nội Dung:"
-        android:textColor="#000"
-        android:textSize="17dp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/txtNoiDung"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_margin="10dp"
-        android:background="#EEEEEE"
-        android:inputType="textMultiLine"
-        android:lines="3"
-        android:maxLines="3"
-        android:minLines="2"
-        android:padding="5dp" />
-
-    <Button
-        android:id="@+id/btnGui"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="GỬI" />
-
-    <TextView
-        android:id="@+id/tvBinhLuan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Bình Luận:"
-        android:textColor="#000"
-        android:textSize="17dp"
-        android:textStyle="bold" />
-
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvSoTruyen">
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/tvBinhLuan"
+        android:layout_weight="1"
+        android:background="@null"
+        android:divider="@null"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll">
 
         <ListView
             android:id="@+id/lvComment"
@@ -64,5 +39,33 @@
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="true" />
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/llMsgCompose"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="6">
+
+        <EditText
+            android:id="@+id/txtNoiDung"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="5"
+            android:background="#FFF"
+            android:hint="Nhập bình luận..."
+            android:textColor="#000"
+            android:theme="@style/ThemeEditText" />
+
+        <ImageView
+            android:id="@+id/btnGui"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:src="@drawable/btnsend" />
+    </LinearLayout>
 
 </LinearLayout>

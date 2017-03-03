@@ -90,7 +90,7 @@
             android:name=".activity.DialogDownload"
             android:label="Lựa Chọn"
             android:noHistory="true"
-            android:theme="@android:style/Theme.Holo.Dialog" />
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth" />
         <activity
             android:name=".slideimages.NumberPickerActivity"
             android:label="Chọn Trang"

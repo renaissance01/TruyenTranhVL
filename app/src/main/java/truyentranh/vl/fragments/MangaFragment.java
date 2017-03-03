@@ -93,9 +93,6 @@ public class MangaFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         //Truyện
         lvManga = (ListView) rootView.findViewById(R.id.lvManga);
 
-
-
-
         /*for (int i = 0; i < tongtheloaiKey; i++) {
             try {
                 arrTheLoai.add(sharedpreferences.getString("theloaiKey" + i, "TamPro"));

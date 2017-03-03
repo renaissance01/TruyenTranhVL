@@ -722,10 +722,14 @@ public class ShowImages extends AppCompatActivity {
                 } else {
                     tvViTri.setText("1");
                     tvTong.setText(imageArra.length + "");
-                    adapter = new ViewPagerAdapter(ShowImages.this, imageArra, bar);
-                    myPager.setAdapter(adapter);
+                    try {
+                        adapter = new ViewPagerAdapter(ShowImages.this, imageArra, bar);
+                        myPager.setAdapter(adapter);
 
-                    myPager.setCurrentItem(Integer.valueOf(trangtruyen));
+                        myPager.setCurrentItem(Integer.valueOf(trangtruyen));
+                    }catch (Exception e){
+
+                    }
                 }
             } catch (Exception e) {
             }
