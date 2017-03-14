@@ -34,9 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btnLuu"
-        android:layout_below="@+id/searchView"
-
-        />
+        android:layout_below="@+id/searchView" />
 
     <Button
         android:id="@+id/btnLuu"
@@ -53,4 +51,5 @@
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="17sp" />
+
 </RelativeLayout>
