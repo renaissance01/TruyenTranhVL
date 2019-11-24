@@ -1,28 +1,28 @@
 <h1>Chức năng</h1>
--	Đăng ký tài khoản.
--	Đăng nhập bằng tài khoản đã đăng ký.
--	Đăng nhập bằng tài khoản facebook.
--	Chia sẻ ứng dụng lên facebook.
--	Tải chap truyện về máy.
--	Danh sách truyện đã tải về máy.
--	Đọc truyện đã tải về máy.
--	Đọc truyện là file nén từ thẻ hoặc bộ nhớ máy.
--	Bình luận truyện.
--	Xem thông tin của truyện.
--	Vào lại trang đang đọc của chap theo từng truyện.
--	Hiển thị nhận biết truyện đang đọc và chap đang đọc dở
--	Tìm kiếm truyện cần đọc.
--	Kiểm tra kết nối mạng.
--	Danh sách truyện mới cập nhật.
--	Danh sách truyện đọc nhiều nhất từ cộng đồng người đọc.
--	Danh sách truyện đã đọc.
--	Thích từng truyện.
--	Danh sách truyện đã thích từ cộng động người đọc.
--	Đọc truyện theo từng chap (tập)
--	Vào trang truyện đang đọc.
--	Khóa màn hình xoay khi đang đọc trang truyện.
--	Chuyển đến trang truyện người dùng cần đọc.
--	Chuyển đến trang đầu tiên và cuối cùng của truyện.
+-	Đăng ký tài khoản.<br/>
+-	Đăng nhập bằng tài khoản đã đăng ký.<br/>
+-	Đăng nhập bằng tài khoản facebook.<br/>
+-	Chia sẻ ứng dụng lên facebook.<br/>
+-	Tải chap truyện về máy.<br/>
+-	Danh sách truyện đã tải về máy.<br/>
+-	Đọc truyện đã tải về máy.<br/>
+-	Đọc truyện là file nén từ thẻ hoặc bộ nhớ máy.<br/>
+-	Bình luận truyện.<br/>
+-	Xem thông tin của truyện.<br/>
+-	Vào lại trang đang đọc của chap theo từng truyện.<br/>
+-	Hiển thị nhận biết truyện đang đọc và chap đang đọc dở<br/>
+-	Tìm kiếm truyện cần đọc.<br/>
+-	Kiểm tra kết nối mạng.<br/>
+-	Danh sách truyện mới cập nhật.<br/>
+-	Danh sách truyện đọc nhiều nhất từ cộng đồng người đọc.<br/>
+-	Danh sách truyện đã đọc.<br/>
+-	Thích từng truyện.<br/>
+-	Danh sách truyện đã thích từ cộng động người đọc.<br/>
+-	Đọc truyện theo từng chap (tập).<br/>
+-	Vào trang truyện đang đọc.<br/>
+-	Khóa màn hình xoay khi đang đọc trang truyện.<br/>
+-	Chuyển đến trang truyện người dùng cần đọc.<br/>
+-	Chuyển đến trang đầu tiên và cuối cùng của truyện.<br/>
 
 <h1>Mẫu thực tế</h1>
 
